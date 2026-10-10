@@ -26,7 +26,7 @@ npm run dev
 
 - A API inicia em `http://localhost:3000/api`
 - Documentação interativa em `http://localhost:3000/api/docs`
-- Verificar status do sistema e conexão com o banco de dados `http://localhost:3000/api/status`
+- Verificar status do sistema e conexão com o banco de dados `http://localhost:3000/status`
 
 ## Arquitetura e respostas HTTP
 
