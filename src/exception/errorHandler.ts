@@ -22,6 +22,10 @@ export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
       res.status(404).json({ error: "Registro não encontrado." });
       return;
     }
+    if (error.code === "P2007") {
+      res.status(400).json({ error: "Dados inválidos." });
+      return;
+    }
   }
   console.error(error);
   res.status(500).json({ error: "Erro interno do servidor.", ...(env.NODE_ENV === "development" && { details: String(error) }) });

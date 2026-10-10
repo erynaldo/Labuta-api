@@ -10,8 +10,8 @@ export class ServiceRequestRepository {
     return prisma.serviceRequest.create({ data, include: requestInclude });
   }
 
-  listForUser(userId: string, role: "CLIENT" | "PROFESSIONAL") {
-    const where = role === "CLIENT" ? { clientId: userId } : { professional: { userId } };
+  listForUser(userId: string) {
+    const where = { OR: [{ clientId: userId }, { professional: { userId } }] };
     return prisma.serviceRequest.findMany({ where, include: requestInclude, orderBy: { createdAt: "desc" } });
   }
 

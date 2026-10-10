@@ -2,9 +2,10 @@ import { STATUS_CODES } from "node:http";
 import type { RequestHandler } from "express";
 
 export const httpLogger: RequestHandler = (req, res, next) => {
+  const path = req.path;
   res.on("finish", () => {
     const statusText = STATUS_CODES[res.statusCode]?.toUpperCase() ?? "UNKNOWN STATUS";
-    console.info(`[HTTP] ${req.method} ${req.path} - ${res.statusCode} ${statusText}`);
+    console.info(`[HTTP] ${req.method} ${path} - ${res.statusCode} ${statusText}`);
   });
 
   next();

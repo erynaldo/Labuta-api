@@ -4,13 +4,14 @@ import { serviceRequestRepository } from "../repositories/serviceRequestReposito
 import { prisma } from "../config/prisma.js";
 
 export class ServiceRequestService {
-  list(userId: string, role: "CLIENT" | "PROFESSIONAL") {
-    return serviceRequestRepository.listForUser(userId, role);
+  list(userId: string) {
+    return serviceRequestRepository.listForUser(userId);
   }
 
   async create(clientId: string, input: { professionalId: string; kind: "QUOTE" | "SERVICE"; description: string; desiredDate?: Date; attachmentUrl?: string }) {
     const profile = await professionalRepository.findById(input.professionalId);
     if (!profile || !profile.available || profile.user.status !== "ACTIVE") throw new AppError("Profissional indisponível ou não encontrado.", 404);
+    if (profile.user.id === clientId) throw new AppError("Não é possível solicitar serviço ao próprio perfil.", 400);
     const request = await serviceRequestRepository.create({ ...input, clientId });
     await prisma.auditEvent.create({ data: { actorId: clientId, subjectUserId: profile.user.id, action: "SERVICE_REQUEST_CREATED", details: `Solicitação ${request.id}` } });
     return request;
