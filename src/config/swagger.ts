@@ -4,9 +4,9 @@ import { env } from "./env.js";
 export const swaggerSpec = swaggerJsdoc({
   definition: {
     openapi: "3.0.3",
-    info: { title: "Labuta API", version: "1.0.0", description: "API REST da plataforma Labuta para contratação de serviços." },
-    // servers: [{ url: `http://localhost:${env.PORT}/api`, description: "Servidor local" }],
-    servers: [{ url: `https://labuta-api.onrender.com/api`, description: "Servidor local" }],
+    info: { title: "Labuta API", version: "1.0.0", description: "API RESTFul da plataforma Labuta para contratação de serviços." },
+    servers: [{ url: `http://localhost:${env.PORT}/api`, description: "Servidor local" }],
+    // servers: [{ url: `https://labuta-api.onrender.com/api`, description: "Servidor remoto" }],
     components: {
       securitySchemes: { bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" } },
       schemas: {
